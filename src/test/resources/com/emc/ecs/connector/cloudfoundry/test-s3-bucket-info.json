@@ -1,0 +1,16 @@
+{
+  "label": "ecs-bucket",
+  "name": "$serviceName",
+  "plan": "5gb",
+  "tags": [
+    "s3",
+    "bucket"
+  ],
+  "credentials": {
+    "accessKey": "$accessKey",
+    "bucket": "$bucketName",
+    "endpoint": "$endpoint",
+    "secretKey": "$secretKey",
+    "s3Url": "https://$accessKey:$secretKey@:$hostname:$port/$bucketName"
+  }
+}

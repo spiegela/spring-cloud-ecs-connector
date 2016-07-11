@@ -1,0 +1,15 @@
+{
+  "label": "ecs-namespace",
+  "name": "$serviceName",
+  "plan": "5gb",
+  "tags": [
+    "s3",
+    "namespace"
+  ],
+  "credentials": {
+    "accessKey": "$accessKey",
+    "endpoint": "$endpoint",
+    "secretKey": "$secretKey",
+    "s3Url": "https://$accessKey:$secretKey@:$hostname:$port"
+  }
+}
