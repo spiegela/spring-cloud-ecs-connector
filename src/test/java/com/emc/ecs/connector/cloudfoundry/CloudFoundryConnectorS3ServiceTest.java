@@ -14,9 +14,6 @@ public class CloudFoundryConnectorS3ServiceTest extends AbstractCloudFoundryConn
     private String accessKeyId = "mypublickey";
     private String secretAccessKey = "mysecretkey";
 
-    public CloudFoundryConnectorS3ServiceTest() {
-    }
-
     private static String getUrl() {
         return "https://" + "10.20.30.40" + ":" + 80;
     }

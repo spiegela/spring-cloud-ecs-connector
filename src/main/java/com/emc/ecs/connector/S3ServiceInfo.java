@@ -1,7 +1,6 @@
 package com.emc.ecs.connector;
 
 import org.springframework.cloud.service.BaseServiceInfo;
-import org.springframework.cloud.service.ServiceInfo;
 
 /**
  * Provides a normalized implementation of S3 service details which can be gleaned
