@@ -1,0 +1,81 @@
+group 'com.emc.ecs'
+version '1.0-SNAPSHOT'
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.9'
+  distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
+
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+apply plugin: 'jacoco'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-core', version: '1.2.2.RELEASE'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-cloudfoundry-connector', version: '1.2.2.RELEASE'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-spring-service-connector', version: '1.2.2.RELEASE'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-core', version: '1.10.52'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.10.52'
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.8'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile group: 'org.springframework.cloud', name: 'spring-cloud-cloudfoundry-connector', version: '1.2.2.RELEASE', classifier: 'tests'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '1.10.19'
+}
+
+publishing {
+    publications {
+        myPublication(MavenPublication) {
+            from components.java
+            artifact ('README.txt') {
+                classifier = 'README'
+                extension  = 'txt'
+            }
+            pom.withXml {
+                asNode().children().last() + {
+                    resolveStrategy = Closure.DELEGATE_FIRST
+                    name 'spring-cloud-ecs-connector'
+                    description 'Spring Cloud Connectors for EMC Elastic Cloud Storage'
+                    url 'http://github.com/spiegela/spring-cloud-ecs-connector'
+                    scm {
+                        url 'http://github.com/spiegela/spring-cloud-ecs-connector'
+                    }
+                    licenses {
+                        license {
+                            name 'The Apache Software License, Version 2.0'
+                            url 'http://www.apache.org/license/LICENSE-2.0.txt'
+                            distribution 'repo'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id 'your id or nick name'
+                            name 'Aaron Spiegel'
+                            email 'spiegela@gmail.com'
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+    // telling gradle to publish artifact to local directory (3)
+    repositories {
+        maven {
+            url "file:/${project.projectDir}/artifacts"
+        }
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
