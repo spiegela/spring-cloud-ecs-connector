@@ -1,4 +1,7 @@
 # Spring-cloud-ECS-connectors
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/94ddb01c6b664d8ea04092521364b3f6)](https://www.codacy.com/app/spiegela/spring-cloud-ecs-connector?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=spiegela/spring-cloud-ecs-connector&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/94ddb01c6b664d8ea04092521364b3f6)](https://www.codacy.com/app/spiegela/spring-cloud-ecs-connector?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=spiegela/spring-cloud-ecs-connector&amp;utm_campaign=Badge_Coverage)
+[![Build Status](https://travis-ci.org/spiegela/spring-cloud-ecs-connector.svg?branch=master)](https://travis-ci.org/spiegela/spring-cloud-ecs-connector)
 [![Apache Version 2 Licence](http://img.shields.io/:license-Apache%20v2-blue.svg)](LICENSE)
 
 Spring cloud ECS service connectors to use EMC ECS in CloudFoundry

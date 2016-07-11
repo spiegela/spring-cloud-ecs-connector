@@ -1,0 +1,14 @@
+language: java
+env:
+  global:
+    secure: E/HgwBc6RRwuhcPtslmSZ95JEvgqEhDF2YF5WCs99h2VP+XKF+fy34G0h+GKPGRv9Ou0nRtsyomxItoU4OuigJeAf/JCgLlLprhkGJOFKFkJIAl4k8oG2gaP74ltxcS4vFU5Tdd+pT0Hjv64yQOxWRFhB4T5zPdhd/AYYK2C+FxQJ76ShFYJAwyXJbq1DbfUxs9tEpJu+83wbaO90jsAYsomp4sKQqvDKmS2EWAvEKKQ9UecCk25K6Mc04opc/cxkC6nW6+0YiW8uDO7ZeQQF+i1c/expFjJuxhbHTN70L/s+6uHcYLxvKTCtESikp5jNall/TQb4FfiyVmMJ8ZRvHs3oUKuX3nvJrbZCiCz2EYUbhgAouxzCCD6z4UQdvtLdxOr1G0v99VBkIjs/qBJgeHThffluW8NBQkST/zHEUjKJUvGzT2pTe4TJzp3dUYyBy0+3HtUha9KdPypWDzfTTKvBSzWHXp0SKCqaMb/eNqfPrRQ21EJGgWawKH4XLQ4q5aReLNOOKDy+Axc1z8G7Ctw9de2Md3Q473kT6RJWrsDx6mFIdRQbmr1AR9GgOAia6c+zw54Q5U1+x/ZhA1wCjU4CDDcVlpXXCsyZt9XRzupwKG0b9Tlta2RUFl8CZWaNPU/vc1bIlsPSSIUjeIpJrOTcCBpHNM71HenSKKeRfU=
+jdk:
+  - oraclejdk8
+before_script:
+  - curl -sL https://github.com/jpm4j/jpm4j.installers/raw/master/dist/biz.aQute.jpm.run.jar > t.jar
+  - java -jar t.jar -u init
+  - rm t.jar
+  - "/home/travis/jpm/bin/jpm install com.codacy:codacy-coverage-reporter:assembly"
+script: gradle test jacocoTestReport --info
+after_script:
+  - "/home/travis/jpm/bin/codacy-coverage-reporter -l Java -r build/reports/jacoco/test/jacocoTestReport.xml --projectToken $CODACY_API_KEY"
