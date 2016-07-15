@@ -1,22 +1,18 @@
 group 'com.emc.ecs'
 
 ext.githubProjectName = 'spring-cloud-ecs-connector'
+ext.githubUrl = "https://github.com/spiegela/${githubProjectName}.git"
 
 ext.licenseName = 'Apache v2'
 ext.licenceUrl = 'https://opensource.org/licenses/Apache-2.0'
 
 buildscript {
-    ext.commonBuildVersion = '1.5'
+    ext.commonBuildVersion = '1.5.1'
     ext.commonBuildDir = "https://raw.githubusercontent.com/emcvipr/ecs-common-build/v$commonBuildVersion"
     apply from: "$commonBuildDir/ecs-publish.buildscript.gradle", to: buildscript
 }
 
 apply from: "$commonBuildDir/ecs-publish.gradle"
-
-task wrapper(type: Wrapper) {
-  gradleVersion = '2.9'
-  distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
-}
 
 apply plugin: 'java'
 apply plugin: 'jacoco'
