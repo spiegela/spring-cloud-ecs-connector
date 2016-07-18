@@ -9,6 +9,9 @@ before_script:
   - java -jar t.jar -u init
   - rm t.jar
   - "/home/travis/jpm/bin/jpm install com.codacy:codacy-coverage-reporter:assembly"
-script: gradle test jacocoTestReport --info
+install:
+  - "./gradlew -PsonatypeUsername -PgithubUsername assemble"
+script:
+  - "./gradlew -PsonatypeUsername -PgithubUsername test jacocoTestReport --info"
 after_script:
   - "/home/travis/jpm/bin/codacy-coverage-reporter -l Java -r build/reports/jacoco/test/jacocoTestReport.xml --projectToken $CODACY_API_KEY"
