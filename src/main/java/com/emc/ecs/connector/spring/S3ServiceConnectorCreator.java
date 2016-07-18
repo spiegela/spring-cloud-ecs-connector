@@ -33,9 +33,7 @@ public class S3ServiceConnectorCreator
         ClientConfiguration clientConfig = new ClientConfiguration();
         clientConfig.setSignerOverride("S3SignerType");
 
-        S3ClientOptions options = new S3ClientOptions();
-        options.setPathStyleAccess(true);
-
+        S3ClientOptions options = S3ClientOptions.builder().setPathStyleAccess(true).build();
         AWSCredentials awsCredentials = new BasicAWSCredentials(serviceInfo.getAccessKey(), serviceInfo.getSecretKey());
 
         AmazonS3 amazonS3 = new AmazonS3Client(awsCredentials, clientConfig);
