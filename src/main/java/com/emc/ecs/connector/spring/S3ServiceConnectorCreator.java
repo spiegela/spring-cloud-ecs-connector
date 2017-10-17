@@ -1,11 +1,14 @@
 package com.emc.ecs.connector.spring;
 
-import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.client.builder.AwsClientBuilder;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.S3ClientOptions;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.emc.ecs.connector.S3ServiceInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,16 +33,16 @@ public class S3ServiceConnectorCreator
      */
     @Override
     public S3Connector create(S3ServiceInfo serviceInfo, ServiceConnectorConfig serviceConnectorConfig) {
-        ClientConfiguration clientConfig = new ClientConfiguration();
-        clientConfig.setSignerOverride("S3SignerType");
-
-        S3ClientOptions options = S3ClientOptions.builder().setPathStyleAccess(true).build();
-        AWSCredentials awsCredentials = new BasicAWSCredentials(serviceInfo.getAccessKey(), serviceInfo.getSecretKey());
-
-        AmazonS3 amazonS3 = new AmazonS3Client(awsCredentials, clientConfig);
-        amazonS3.setEndpoint(serviceInfo.getEndpoint());
-        amazonS3.setS3ClientOptions(options);
-
+        AWSCredentials credentials = new BasicAWSCredentials(serviceInfo.getAccessKey(), serviceInfo.getSecretKey());
+        AWSCredentialsProvider credentialsProvider = new AWSStaticCredentialsProvider(credentials);
+        AwsClientBuilder.EndpointConfiguration endpointConfig = new AwsClientBuilder.EndpointConfiguration(
+                serviceInfo.getEndpoint(), Region.getRegion(Regions.DEFAULT_REGION).getName());
+        AmazonS3 amazonS3 = AmazonS3ClientBuilder
+                .standard()
+                .withEndpointConfiguration(endpointConfig)
+                .withCredentials(credentialsProvider)
+                .enablePathStyleAccess()
+                .build();
         if (serviceInfo.getBucket() != null) {
             log.debug("Creating connector addressing ECS bucket: " + serviceInfo.getBucket());
             return new S3Connector(amazonS3, serviceInfo.getEndpoint(), serviceInfo.getBucket());
