@@ -6,6 +6,25 @@
 
 Spring cloud ECS service connectors to use EMC ECS in CloudFoundry
 
+### Add the connector as a dependency in your app
+
+via Maven:
+```xml
+<dependency>
+    <groupId>com.emc.ecs</groupId>
+    <artifactId>spring-cloud-ecs-connector</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+or Gradle:
+```groovy
+compile 'com.emc.ecs:spring-cloud-ecs-connector:1.0.0'
+```
+
+or just grab it from it's page on [search.maven.org](http://search.maven.org/#artifactdetails%7Ccom.emc.ecs%7Cspring-cloud-ecs-connector%7C1.0.0%7Cjar).
+
+
 ### Add a connector to your project
 
 Here the bootstrap for your spring boot app to get a `S3Connector` including bucket name, the HTTP endpoint and a pre-configured AWS S3 SDK Client.
